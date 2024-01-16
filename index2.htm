@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Operations Sorting and Searching</title>
+
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Array Operations Sorting and Searching</h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Array of Integer Elements</h2>
+
+                <input type="text" id="number" placeholder="eg: 2 (only numbers)">
+                <br><br>
+                <button id="add" onclick="addElement()">Add to array</button>
+                <br><br>
+
+                <p>Original Array: <span id="integerArray"></span></p>
+
+                <br>
+                <button id="display" onclick="sorting()">Sort and Display Array</button>
+                <br><br>
+
+                <p>Sorted Array: <span id="sortedIntegerArray"></span></p>
+                <p>Search for value: <input type="text" id="searchInteger"></p>
+                <p>Search Result: <span id="searchResult"></span></p>
+            </div>
+            <div class="col-md-6">
+                <h2>Array of Named Entities</h2>
+                <p>Entities: <span id="namedEntities"></span></p>
+                <br>
+                <button id="sortEntities" onclick="sortingName(namedEntities, 'sortedNamedEntities')">Sort Entities Array</button>
+                <br><br>
+                <ul id="sortedNamedEntities"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+        // Sample named entities array
+        const namedEntities = ['Eve','Alice','David', 'Bob', 'George','Charlie'];
+
+        // Display named entities
+        $('#namedEntities').text(namedEntities.join(', '));
+
+        const integerArray = [];
+
+        function addElement() {
+            let element = document.getElementById("number");
+            if (element.value != "") {
+                let value = parseInt(element.value);
+
+                integerArray.push(value);
+                element.value = "";
+                console.log(integerArray);
+
+                // Update the original array display
+                document.getElementById("integerArray").innerText = integerArray.join(', ');
+            } else {
+                window.alert("Enter only numbers");
+            }
+        }
+
+
+        function sortingName(arr, outputId) {
+            const sortedArray = [...arr].sort();
+            document.getElementById(outputId).innerText = sortedArray.join(', ');
+
+            // Display the sorted array in a list
+            const sortedList = document.getElementById(outputId);
+            sortedList.innerHTML = "";
+            sortedArray.forEach(item => {
+                const li = document.createElement('li');
+                li.innerText = item;
+                sortedList.appendChild(li);
+            });
+        }
+
+
+        function sorting() {
+            const sortedArray = [...integerArray].sort((a, b) => a - b);
+            document.getElementById("sortedIntegerArray").innerText = sortedArray.join(', ');
+
+
+            // Display the sorted array
+            for (i = 0; i < sortedArray.length; i++) {
+                li.innerHTML = sortedArray[i];
+                console.log(sortedArray[i]);
+            }
+        }
+
+        function searchValue() {
+            const searchTerm = parseInt(document.getElementById("searchInteger").value);
+            if (!isNaN(searchTerm)) {
+                const foundIndex = integerArray.indexOf(searchTerm);
+                if (foundIndex !== -1) {
+                    document.getElementById("searchResult").innerText = `Found at index ${foundIndex}`;
+                } else {
+                    document.getElementById("searchResult").innerText = 'Not found';
+                }
+            }
+        }
+
+        // Attach search function to input change
+        document.getElementById("searchInteger").addEventListener("input", searchValue);
+    </script>
+</body>
+
+</html>
